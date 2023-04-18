@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Mod List</title>
+{% endblock %}
+
+{% block content %}
+<h1>Mod List</h1>
+
+{% for mod in mods %}
+<a href="{% url 'mods_detail' mod.id %}">
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title">{{ mod.name }}</span>
+        </div>
+    </div>
+</a>
