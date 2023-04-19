@@ -21,6 +21,7 @@ class Car(models.Model):
     trim = models.CharField(max_length=50, default='')
     color = models.CharField(max_length=50, default='primer')
     description = models.CharField(max_length=500, default='')
+    mods = models.ManyToManyField(Mod)
     
     def __str__(self):
         return self.model
@@ -35,8 +36,8 @@ class Maintenance(models.Model):
         ('B', 'Brakes'),
     )
 
-    date = models.DateField()
-    service = models.CharField(max_length=1, choices=SERVICES, default=[0][0])
+    date = models.DateField('maintenance date')
+    service = models.CharField(max_length=1, choices=SERVICES, default=SERVICES[0][0], verbose_name='maintenance type')
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -44,3 +45,10 @@ class Maintenance(models.Model):
     
     class Meta:
         ordering = ('-date',)
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for car_id: {self.car_id} @{self.url}"
