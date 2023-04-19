@@ -19,5 +19,6 @@ urlpatterns = [
 
     path('cars/<int:car_id>/assoc_mod/<int:mod_id>/', views.assoc_mod, name='assoc_mod'),
     path('cars/<int:car_id>/unassoc_mod/<int:mod_id>/', views.unassoc_mod, name='unassoc_mod'),
-    path('cars/<int:car_id>/add_photo/', views.add_photo, name='add_photo')
+    path('cars/<int:car_id>/add_photo/', views.add_photo, name='add_photo'),
+    path('accounts/signup/', views.signup, name='signup')
 ]
