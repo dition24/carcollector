@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Car, Mod
+from .forms import MaintenanceForm
 
 # Create your views here.
 
@@ -16,7 +17,20 @@ def cars_index(request):
 
 def cars_detail(request, car_id):
     car = Car.objects.get(id=car_id)
-    return render(request, 'cars/detail.html', {'car': car})
+    maintenance_form = MaintenanceForm()
+    return render(request, 'cars/detail.html', {
+        'car': car,
+        'maintenance_form': maintenance_form
+    })
+
+def add_maintenance(request, car_id):
+    form = MaintenanceForm(request.POST)
+    if form.is_valid():
+        new_maintenance = form.save(commit=False)
+        new_maintenance.car_id = car_id
+        new_maintenance.save()
+
+    return redirect('cars_detail', car_id=car_id)
 
 def mods_index(request):
     mods = Mod.objects.all()

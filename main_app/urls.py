@@ -14,5 +14,6 @@ urlpatterns = [
     path('mods/<int:mod_id>/', views.mods_detail, name='mods_detail'),
     path('mods/create/', views.ModCreate.as_view(), name='mods_create'),
     path('mods/<int:pk>/update/', views.ModUpdate.as_view(), name='mod_update'),
-    path('mods/<int:pk>/delete/', views.ModDelete.as_view(), name='mod_delete')
+    path('mods/<int:pk>/delete/', views.ModDelete.as_view(), name='mod_delete'),
+    path('cars/<int:car_id>/add_maintenance/', views.add_maintenance, name='add_maintenance')
 ]

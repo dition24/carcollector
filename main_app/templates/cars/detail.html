@@ -24,6 +24,41 @@
             </div>
         </div>
     </div>
+    <div class="col s6">
+        <form action="{% url 'add_maintenance' car.id %}" method="POST">
+            {% csrf_token %}
+            {{ maintenance_form.as_p }}
+            <input type="submit" value="Add Maintenance" class="btn blue">
+        </form>
+        <table class="striped">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Service</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for maintenance in car.maintenance_set.all %}
+                    <tr>
+                        <td>{{ maintenance.date }}</td>
+                        <td>{{ maintenance.get_service_display }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
+<script>
+    const datePickerEl = document.getElementById('id_date');
+    const formSelectEl = document.getElementById('id_meal');
+
+    M.Datepicker.init(datePickerEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+    M.FormSelect.init(formSelectEl)
+</script>
 {% endblock %}
